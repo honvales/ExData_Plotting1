@@ -1,0 +1,17 @@
+df <- read.table('household_power_consumption.txt',sep=';',header=TRUE,na.strings='?')
+cleandf <- df[which(df$Date=='1/2/2007'|df$Date=='2/2/2007'),] 
+rm(df)
+library(lubridate)
+cleandf$Datetime <- with(cleandf, dmy(Date) + hms(Time))
+png(filename='plot4.png',width=480,height=480)
+par(mfrow=c(2,2))
+with(cleandf, {
+  plot(Datetime,Global_active_power,xlab='',ylab='Global active power (kilowatts)',type='l')
+  plot(Datetime,Voltage,xlab='datetime',ylab='Voltage',type='l')
+  plot(Datetime,Sub_metering_1,xlab='',ylab='Energy sub metering',type='l')
+  lines(Datetime,Sub_metering_2,col='red',type='l')
+  lines(Datetime,Sub_metering_3,col='blue',type='l')
+  legend('topright',lty=1,col=c('black','red','blue'),legend=c('Sub_metering_1','Sub_metering_2','Sub_metering_3'))
+  plot(Datetime,Global_reactive_power,xlab='datetime',ylab='Global_reactive_power',type='l')
+})
+dev.off()
