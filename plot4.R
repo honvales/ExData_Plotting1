@@ -6,7 +6,7 @@ cleandf$Datetime <- with(cleandf, dmy(Date) + hms(Time))
 png(filename='plot4.png',width=480,height=480)
 par(mfrow=c(2,2))
 with(cleandf, {
-  plot(Datetime,Global_active_power,xlab='',ylab='Global active power (kilowatts)',type='l')
+  plot(Datetime,Global_active_power,xlab='',ylab='Global Active Power',type='l')
   plot(Datetime,Voltage,xlab='datetime',ylab='Voltage',type='l')
   plot(Datetime,Sub_metering_1,xlab='',ylab='Energy sub metering',type='l')
   lines(Datetime,Sub_metering_2,col='red',type='l')
