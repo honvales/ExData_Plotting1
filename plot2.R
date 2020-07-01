@@ -1,9 +1,10 @@
 df <- read.table('household_power_consumption.txt',sep=';',header=TRUE,na.strings='?')
 cleandf <- df[which(df$Date=='1/2/2007'|df$Date=='2/2/2007'),] 
 rm(df)
+library(lubridate)
+cleandf$Datetime <- with(cleandf, dmy(Date) + hms(Time))
 cleandf$Date <- as.Date(cleandf$Date,format='%d/%m/%Y')
 cleandf$Time <- strptime(cleandf$Time,format='%H:%M:%S')
-globactpow <- cleandf$Global_active_power
-png(filename='plot1.png')
-hist(globactpow,col='red',xlab='Global Active Power (kW)',main='Global Active Power')
+png(filename='plot2.png')
+plot(cleandf$Datetime,cleandf$Global_active_power,xlab='',ylab='Global active power (kilowatts)',type='l')
 dev.off()
